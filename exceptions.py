@@ -24,9 +24,9 @@ def checknumber(a):
     return status
 def tangens(a):
     """Checking for errors in calculating tg"""
-    if (a % 90 == 0) and (a % 180 != 0):
-        raise ArithmeticError
     try:
+        if (a % 90 == 0) and (a % 180 != 0):
+            raise ArithmeticError
         print(f"Тангенс {a} равен {math.tan(math.radians(a))}")
     except ArithmeticError:
         print("Из данного числа тангенс не выводится!")
@@ -63,13 +63,11 @@ def root(a, b):
         print(f"Возможно, вы имели в виду корень степени {b} от числа a равен {(-1* a) ** (1 / b)}")
     except TypeError:
         print("Степень корня не должна равняться 0")
-    except BaseException:
-        print("Косяк случился, косяк бывает. Какой именно - думай сам")
 def maximum(a):
     """Checking for errors in finding maximum in massive"""
-    if a.Length < 2:
-        raise ArithmeticError
     try:
+        if len(a) < 2:
+            raise ArithmeticError
         print(f"Maximum={max(a)}")
     except ValueError:
         print("Возможно, массив состоит не из чисел. Попробуйте ещё раз")
@@ -79,9 +77,9 @@ def maximum(a):
         print(f"При выполнении функции произошло следующее: {e}")
 def power(a, b):
     """Checking for errors in power and using *raise* operator """
-    if (a == 0) or (b < 0):
-        raise ArithmeticError
     try:
+        if (a == 0) or (b < 0):
+            raise ArithmeticError
         print(f"{a} в степени {b} равняется {a ** b}")
     except ValueError:
         print("Похоже, вы ввели строку, а не число")
@@ -116,19 +114,24 @@ class Coordinate():
             raise TooBigNumberException(limit)
 def cot(a):
     """Checking for errors in ctg"""
-    if a % 180 == 0:
-        raise CtgDoesntExistException
-    elif a == 42:
-        raise FortyTwoException
-    else:
-        print(math.cos(math.radians(a))/math.sin(math.radians(a)))
+    try:
+        if a % 180 == 0:
+            raise CtgDoesntExistException
+        elif a == 42:
+            raise FortyTwoException
+        else:
+            print(math.cos(math.radians(a))/math.sin(math.radians(a)))
+    except CtgDoesntExistException as e:
+        print(e)
+    except FortyTwoException as e:
+        print(e)
 def summa(a, b):
     """Checking for user exceptions"""
-    if (a > 1000) or (b > 1000):
-        raise TooBigNumberException(1000)
-    if (a == 42) or (b == 42):
-        raise FortyTwoException
     try:
+        if (a > 1000) or (b > 1000):
+            raise TooBigNumberException(1000)
+        if (a == 42) or (b == 42):
+            raise FortyTwoException
         print(f"{a}+{b}={a+b}")
     except TooBigNumberException:
         print("Слишком большие числа в операциях")
@@ -136,4 +139,51 @@ def summa(a, b):
         print("42 не нуждается в отдельных операциях")
     finally:
         print("Суммирование закончено")
-tangens(45)
+def difference(a, b):
+    """Usage of exceptions vol. 1"""
+    found_diff = True
+    try:
+        diff = abs(float(a)-float(b))
+        if diff > 10:
+            raise TooBigNumberException(10)
+    except TooBigNumberException:
+        print("Разница слишком большая")
+        found_diff = False
+    except ValueError:
+        print("Возможно, вы пытались выполнить операцию со строками")
+        found_diff = False
+    finally:
+        print(f"Нашли ли разницу: {found_diff}")
+def minint(a, b, c):
+    """Usage of exceptions vol. 2"""
+    result = 0
+    try:
+        if (a % round(a) != 0) or (b % round(b) != 0) or (c % round(c) != 0):
+            raise ValueError
+        else:
+            result = min(a, b, c)
+    except ValueError as e:
+        print(f"Одно или несколько из чисел не являются целыми! ({e})")
+    return result
+def find42(a):
+    """Usage of exceptions vol. 3"""
+    l = len(a)
+    try:
+        for i in range(0, l):
+            if a[i] == 42:
+                raise FortyTwoException
+        print("Массив проверен - 42 нет!")
+    except FortyTwoException:
+        print("Число 42 в массиве было найдено!")
+        for i in range(0, l):
+            if a[i] == 42:
+                print(f"Номер этого элемента: {i}")
+    finally:
+        print("Проверка окончена!")
+find42([42, 12, 45, 67, 42])
+def allfuncs():
+    """All the functions"""
+    division(23, 0)
+    division(23, 2)
+    sqroot(-25)
+    sqroot(25)
