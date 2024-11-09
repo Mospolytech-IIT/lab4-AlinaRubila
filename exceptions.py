@@ -18,7 +18,7 @@ def checknumber(a):
     try:
         number = float(a)
         print(f"Число {number} введено корректно")
-    except ValueError:
+    except:
         print("Это строка. Не число!")
         status = "rejected"
     return status
@@ -77,4 +77,30 @@ def maximum(a):
         print("В массиве должно быть несколько чисел, чтобы провести сравнение")
     except BaseException as e:
         print(f"При выполнении функции произошло следующее: {e}")
+def power(a, b):
+    """Checking for errors in power and using *raise* operator """
+    if (a == 0) or (b < 0):
+        raise ArithmeticError
+    try:
+        print(f"{a} в степени {b} равняется {a ** b}")
+    except ValueError:
+        print("Похоже, вы ввели строку, а не число")
+    except ArithmeticError:
+        print("Введите положительное b и a, не равное 0. А то в вычислениях не будет смысла")
+    finally:
+        print("Возведение в степень окончено!")
+class FortyTwoException(Exception):
+    """User exception to not use 42 in math operations"""
+    def __str__(self):
+        return "Вы не можете посягать на выполнение операций с числом 42!"
+class TooBigNumberException(Exception):
+    """User exception to limit the number"""
+    def __init__(self, limit):
+        self.limit = limit
+    def __str__(self):
+        return f"Слишком большое число. Допустимый предел - {self.limit}"
+class CtgDoesntExistException(Exception):
+    """User exception for non-existing cotangens of angle"""
+    def __str__(self):
+        return "Для данного числа котангенса на существует"
 tangens(45)
