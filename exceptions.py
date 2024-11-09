@@ -103,4 +103,37 @@ class CtgDoesntExistException(Exception):
     """User exception for non-existing cotangens of angle"""
     def __str__(self):
         return "Для данного числа котангенса на существует"
+class Coordinate():
+    """Class for defining coordinate"""
+    def __init__(self, x, y, limit):
+        if x < limit:
+            self.x = x
+        else:
+            raise TooBigNumberException(limit)
+        if y < limit:
+            self.y = y
+        else:
+            raise TooBigNumberException(limit)
+def cot(a):
+    """Checking for errors in ctg"""
+    if a % 180 == 0:
+        raise CtgDoesntExistException
+    elif a == 42:
+        raise FortyTwoException
+    else:
+        print(math.cos(math.radians(a))/math.sin(math.radians(a)))
+def summa(a, b):
+    """Checking for user exceptions"""
+    if (a > 1000) or (b > 1000):
+        raise TooBigNumberException(1000)
+    if (a == 42) or (b == 42):
+        raise FortyTwoException
+    try:
+        print(f"{a}+{b}={a+b}")
+    except TooBigNumberException:
+        print("Слишком большие числа в операциях")
+    except FortyTwoException:
+        print("42 не нуждается в отдельных операциях")
+    finally:
+        print("Суммирование закончено")
 tangens(45)
