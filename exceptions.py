@@ -120,7 +120,7 @@ def cot(a):
         elif a == 42:
             raise FortyTwoException
         else:
-            print(math.cos(math.radians(a))/math.sin(math.radians(a)))
+            print(f"Котангенс равен={math.cos(math.radians(a))/math.sin(math.radians(a))}")
     except CtgDoesntExistException as e:
         print(e)
     except FortyTwoException as e:
@@ -180,10 +180,37 @@ def find42(a):
                 print(f"Номер этого элемента: {i}")
     finally:
         print("Проверка окончена!")
-find42([42, 12, 45, 67, 42])
 def allfuncs():
     """All the functions"""
     division(23, 0)
     division(23, 2)
     sqroot(-25)
     sqroot(25)
+    print(checknumber("hello"))
+    print(checknumber(12))
+    tangens(90)
+    tangens(45)
+    logarithm("hi", 12)
+    logarithm(-10, 10)
+    logarithm(100, 10)
+    root(-10, 4)
+    root(10, 0)
+    root(1000, 3)
+    maximum([23])
+    maximum([23, 'ki', 45])
+    maximum([34, 900, 87, 99])
+    power(18, -2)
+    power(18, 2)
+    cot(180)
+    cot(42)
+    cot(45)
+    summa(1200, 99)
+    summa(90, 90)
+    difference(100, 65)
+    difference(8, 5)
+    print(minint(12.6, 90, 8))
+    print(minint(123, 45, 6))
+    find42([34, 45, 42, 90])
+    find42([34, 67, 90])
+if __name__ == "__main__":
+    allfuncs()
